@@ -1,0 +1,135 @@
+.App {
+  text-align: center;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+.game_card {
+  background: #f3f1f1;
+  border: 1px solid #383838;
+  float: left;
+  font-size: 12px;
+  font-weight: bold;
+  height: 130px;
+  width: 100px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  text-align: center;
+  color: #414141;
+  border-radius:20px;
+  background-image: url('./dadschool.png');
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: box-shadow .05s;
+}
+.no_game_card {
+  background: #ffffff;
+  border: 0px;
+  float: left;
+  height: 130px;
+  width: 100px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-radius:20px;
+
+}
+.game_card_selected {
+  background: #fffbf0;
+  border: 1px solid #383838;
+  float: left;
+  font-size: 12px;
+  font-weight: bold;
+  height: 130px;
+  width: 100px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  text-align: center;
+  color: #414141;
+  border-radius:20px;
+}
+.game_card:hover{
+  background:#ffffff;
+  border: 1px solid #272727;  
+  background-image: url('./dadschool.png');
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0 0 15px rgba(33,33,33,.5); 
+  animation: shake 0.5s; 
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+.player {
+  font-family: 'Kodchasan', sans-serif;
+  font-size: 60px;
+}
+.players_turn {
+  font-family: 'Kodchasan', sans-serif;
+  font-size: 60px;
+  text-decoration: underline;
+}
+
+.score{
+  font-family: 'Kodchasan', sans-serif;
+  font-size: 60px;
+}
+
+.guess{
+  font-family: 'Kodchasan', sans-serif;
+  font-size: 12px;
+}
+.guess:hover{
+  animation: shake 0.5s; 
+}
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 2;
+  cursor: pointer;
+}
+
+#overlay_text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+}
