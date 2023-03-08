@@ -1,16 +1,14 @@
 {
   "files": {
     "main.css": "/RubberDuckyToyFactory/mustache.git/static/css/main.c1ecda04.css",
-    "main.js": "/RubberDuckyToyFactory/mustache.git/static/js/main.dd877b2b.js",
-    "static/js/787.d15a64f2.chunk.js": "/RubberDuckyToyFactory/mustache.git/static/js/787.d15a64f2.chunk.js",
+    "main.js": "/RubberDuckyToyFactory/mustache.git/static/js/main.99686b62.js",
     "static/media/dadschool.png": "/RubberDuckyToyFactory/mustache.git/static/media/dadschool.43e532cc274e4aa7f08c.png",
     "index.html": "/RubberDuckyToyFactory/mustache.git/index.html",
     "main.c1ecda04.css.map": "/RubberDuckyToyFactory/mustache.git/static/css/main.c1ecda04.css.map",
-    "main.dd877b2b.js.map": "/RubberDuckyToyFactory/mustache.git/static/js/main.dd877b2b.js.map",
-    "787.d15a64f2.chunk.js.map": "/RubberDuckyToyFactory/mustache.git/static/js/787.d15a64f2.chunk.js.map"
+    "main.99686b62.js.map": "/RubberDuckyToyFactory/mustache.git/static/js/main.99686b62.js.map"
   },
   "entrypoints": [
     "static/css/main.c1ecda04.css",
-    "static/js/main.dd877b2b.js"
+    "static/js/main.99686b62.js"
   ]
 }
