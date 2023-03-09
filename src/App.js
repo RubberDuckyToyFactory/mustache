@@ -55,7 +55,7 @@ function GameInit({initGame}) {
     </Row>
     <Row lg={3} className="p-2 g-3 justify-content-center ">
       <Form.Group as={Col} controlId="submit">
-        <Button type="submit">Submit form</Button>
+        <Button type="submit">Start Game!</Button>
       </Form.Group> 
     </Row>
     </Form>
@@ -256,6 +256,8 @@ function App() {
   return (
     <Container fluid="lg" className="App">
       <header>
+          <img src={process.env.PUBLIC_URL + '/mustache-logo.png'} alt="Mustache"/>
+          <br/>
           <code>Mustache Game - Pronouns</code>
       </header>
       {board}
