@@ -3,21 +3,75 @@ import './App.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import pronouns_json from './pronouns.json';
 
 
 let pronouns=shuffle(Object.keys(pronouns_json));
 
-function ScoreBoard({score, togglePlayer}) {
+function GameInit({initGame}) {
+  const [playerOne, setPlayerOne] = useState("");
+  const [playerTwo, setPlayerTwo] = useState("");
+  const [validated, setValidated] = useState(false);
+
+  function handleSubmit(event) {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      console.log(playerOne+":"+playerTwo);
+      initGame([playerOne,playerTwo]);
+    }
+
+    setValidated(true);
+
+  };
+
+  return (
+    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+    <Row lg={3} className="p-2 g-3 justify-content-center ">
+      <Form.Group as={Col} controlId="player_one">
+        <Form.Label>Player One</Form.Label>
+        <Form.Control
+          required
+          type="text"
+          onChange={({target:{value}}) => setPlayerOne(value.toUpperCase())}
+        />
+        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+      </Form.Group>
+    </Row>
+    <Row lg={3} className="p-2 g-3 justify-content-center ">
+      <Form.Group as={Col} controlId="player_two">
+        <Form.Label>Player Two</Form.Label>
+          <Form.Control
+            required
+            type="text"
+            onChange={({target:{value}}) => setPlayerTwo(value.toUpperCase())}
+          />
+        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+      </Form.Group>
+    </Row>
+    <Row lg={3} className="p-2 g-3 justify-content-center ">
+      <Form.Group as={Col} controlId="submit">
+        <Button type="submit">Submit form</Button>
+      </Form.Group> 
+    </Row>
+    </Form>
+  );
+}
+
+function ScoreBoard({score, togglePlayer, playerNames}) {
 
   let playerOne, playerTwo = null;
   console.log("toggle player:"+togglePlayer);
   if(!togglePlayer){
-    playerOne = <Col key="player1" className="players_turn">PLAYER ONE</Col>;
-    playerTwo = <Col key="player2" className="player">PLAYER TWO</Col>;
+    playerOne = <Col key="player1" className="players_turn">{playerNames[0]}</Col>;
+    playerTwo = <Col key="player2" className="player">{playerNames[1]}</Col>;
   } else {
-    playerOne = <Col key="player1" className="player">PLAYER ONE</Col>;
-    playerTwo = <Col key="player2" className="players_turn">PLAYER TWO</Col>;
+    playerOne = <Col key="player1" className="player">{playerNames[0]}</Col>;
+    playerTwo = <Col key="player2" className="players_turn">{playerNames[1]}</Col>;
   }
   return (
     <Row key="scoreboard" lg={3}>
@@ -52,7 +106,7 @@ function Card({value, onCardClick, status, isMatchCheck, checkMatch}) {
   }
 }
 
-function Board({cards, onPlay, flippedCards, score, togglePlayer}) {
+function Board({cards, onPlay, flippedCards, score, togglePlayer, playerNames}) {
  
   let board=[[]];
   let board_cards = [];
@@ -158,7 +212,7 @@ function Board({cards, onPlay, flippedCards, score, togglePlayer}) {
 
   return (
     <React.Fragment>
-      <ScoreBoard score={score} togglePlayer={togglePlayer}/>
+      <ScoreBoard score={score} togglePlayer={togglePlayer} playerNames={playerNames}/>
       {board}
     </React.Fragment>
   );
@@ -169,7 +223,9 @@ function App() {
   const [cards, setCards] = useState(loadPronouns);
   const [score, setScore] = useState([{"score":0}, {"score":0}]);
   const [togglePlayer, setTogglePlayer] = useState(false);
-   
+  const [players, setPlayers] = useState([]);
+  const isPlayerNameSet = players.length === 2;
+
   function loadPronouns() {
     const initCards = [];
     pronouns.forEach((pronoun,index)=>{
@@ -186,15 +242,26 @@ function App() {
     setTogglePlayer(switchPlayer);
   }
 
-  
+  function initGame(playerNames) {
+    setPlayers(playerNames);
+  }
+
+  let board;
+  console.log("# of players: "+players.length);
+  if(!isPlayerNameSet) {
+    board = <GameInit players={players} initGame={initGame}/>
+  } else {
+    board = <Board cards={cards} onPlay={handlePlay} flippedCards={flippedCards} score={score} togglePlayer={togglePlayer} playerNames={players}/>
+  }
   return (
     <Container fluid="lg" className="App">
       <header>
-          <code>Pronouns</code>
+          <code>Mustache Game - Pronouns</code>
       </header>
-      <Board cards={cards} onPlay={handlePlay} flippedCards={flippedCards} score={score} togglePlayer={togglePlayer}/>
+      {board}
     </Container>
   );
+  
 }
 
 function checkForMatches(flippedCards) {
