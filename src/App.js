@@ -21,7 +21,6 @@ function GameInit({initGame}) {
       event.preventDefault();
       event.stopPropagation();
     } else {
-      console.log(playerOne+":"+playerTwo);
       initGame([playerOne,playerTwo]);
     }
 
@@ -38,6 +37,7 @@ function GameInit({initGame}) {
           required
           type="text"
           onChange={({target:{value}}) => setPlayerOne(value.toUpperCase())}
+          autoComplete="off"
         />
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
       </Form.Group>
@@ -49,6 +49,7 @@ function GameInit({initGame}) {
             required
             type="text"
             onChange={({target:{value}}) => setPlayerTwo(value.toUpperCase())}
+            autoComplete="off"
           />
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
       </Form.Group>
@@ -65,7 +66,6 @@ function GameInit({initGame}) {
 function ScoreBoard({score, togglePlayer, playerNames}) {
 
   let playerOne, playerTwo = null;
-  console.log("toggle player:"+togglePlayer);
   if(!togglePlayer){
     playerOne = <Col key="player1" className="players_turn">{playerNames[0]}</Col>;
     playerTwo = <Col key="player2" className="player">{playerNames[1]}</Col>;
@@ -107,13 +107,12 @@ function Card({value, onCardClick, status, isMatchCheck, checkMatch}) {
 }
 
 function Board({cards, onPlay, flippedCards, score, togglePlayer, playerNames}) {
- 
+
   let board=[[]];
   let board_cards = [];
 
   function matchCheck(myGuess) {
     const newScore = score.at(togglePlayer);
-    //console.log(togglePlayer);
     const isMatch = checkForMatches(flippedCards);
     const flippedCardOne = cards.find(
       c => c.id === flippedCards[0].id
@@ -130,7 +129,7 @@ function Board({cards, onPlay, flippedCards, score, togglePlayer, playerNames}) 
       } else {
         newScore.score=newScore.score+1;
       }
-      togglePlayer=!togglePlayer;
+      togglePlayer=!togglePlayer;      
 
     } else if(isMatch === false && myGuess === false){
       flippedCardOne.status = 0; 
@@ -209,7 +208,6 @@ function Board({cards, onPlay, flippedCards, score, togglePlayer, playerNames}) 
     }
   });
   
-
   return (
     <React.Fragment>
       <ScoreBoard score={score} togglePlayer={togglePlayer} playerNames={playerNames}/>
@@ -246,21 +244,27 @@ function App() {
     setPlayers(playerNames);
   }
 
-  let board;
+  let game;
   console.log("# of players: "+players.length);
   if(!isPlayerNameSet) {
-    board = <GameInit players={players} initGame={initGame}/>
+    game = <React.Fragment>      
+            <header>
+                <img src={process.env.PUBLIC_URL + '/mustache-logo.png'} alt="Mustache"/>
+                <br/>
+                <code>Mustache Game - Pronouns</code>
+            </header><GameInit players={players} initGame={initGame}/>
+          </React.Fragment>;
   } else {
-    board = <Board cards={cards} onPlay={handlePlay} flippedCards={flippedCards} score={score} togglePlayer={togglePlayer} playerNames={players}/>
+    game = <React.Fragment>      
+              <header>
+                  <code>Mustache Game - Pronouns</code>
+              </header><Board cards={cards} onPlay={handlePlay} flippedCards={flippedCards} score={score} togglePlayer={togglePlayer} playerNames={players}/>
+            </React.Fragment>;
+    
   }
   return (
     <Container fluid="lg" className="App">
-      <header>
-          <img src={process.env.PUBLIC_URL + '/mustache-logo.png'} alt="Mustache"/>
-          <br/>
-          <code>Mustache Game - Pronouns</code>
-      </header>
-      {board}
+      {game}
     </Container>
   );
   
