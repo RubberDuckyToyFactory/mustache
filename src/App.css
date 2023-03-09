@@ -110,3 +110,27 @@
   animation: shake 0.5s; 
   animation-iteration-count: infinite;
 }
+.answer{
+  font-family: 'Kodchasan', sans-serif;
+  font-size: 35px;
+}
+
+.overlay {
+  display:flex;
+  background:#ffffff;
+  font-family: 'Kodchasan', sans-serif;
+  font-size: 100px;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(33,33,33,.5); 
+  animation: shake 0.5s; 
+  color: #414141;
+  border-radius:20px;
+  align-items: center;
+  justify-content:center;
+  border: 1px solid #272727;  
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+}

@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Stack from 'react-bootstrap/Stack';
 import pronouns_json from './pronouns.json';
 
 
@@ -38,6 +39,7 @@ function GameInit({initGame}) {
           type="text"
           onChange={({target:{value}}) => setPlayerOne(value.toUpperCase())}
           autoComplete="off"
+          maxlength="10"
         />
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
       </Form.Group>
@@ -50,6 +52,7 @@ function GameInit({initGame}) {
             type="text"
             onChange={({target:{value}}) => setPlayerTwo(value.toUpperCase())}
             autoComplete="off"
+            maxlength="10"
           />
         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
       </Form.Group>
@@ -108,6 +111,9 @@ function Card({value, onCardClick, status, isMatchCheck, checkMatch}) {
 
 function Board({cards, onPlay, flippedCards, score, togglePlayer, playerNames}) {
 
+  const [ isCorrectAnswerVisible, setIsCorrectAnswerVisible ] = useState(false);
+  const [ answer, setAnswer] = useState("");
+
   let board=[[]];
   let board_cards = [];
 
@@ -120,16 +126,23 @@ function Board({cards, onPlay, flippedCards, score, togglePlayer, playerNames}) 
     const flippedCardTwo = cards.find(
       c => c.id === flippedCards[1].id
     );
+
+    
     if(isMatch === true && myGuess === true){
       flippedCardOne.status = 2; 
       flippedCardTwo.status = 2; 
       console.log("You got it right!");
       if(flippedCardTwo.pronoun==="dad" || flippedCardTwo.pronoun==="school") {
         newScore.score=newScore.score+5;
+        setAnswer("Dad School!! (Dad's Cool!)");
       } else {
         newScore.score=newScore.score+1;
+        setAnswer(pronouns_json[flippedCardTwo.pronoun].toUpperCase());
       }
-      togglePlayer=!togglePlayer;      
+      togglePlayer=!togglePlayer;  
+      
+      setIsCorrectAnswerVisible(true);  
+      setTimeout(() => {setIsCorrectAnswerVisible(false);}, 2500);  
 
     } else if(isMatch === false && myGuess === false){
       flippedCardOne.status = 0; 
@@ -210,6 +223,12 @@ function Board({cards, onPlay, flippedCards, score, togglePlayer, playerNames}) 
   
   return (
     <React.Fragment>
+      {isCorrectAnswerVisible && <Stack gap={2} className="overlay">
+              <div>CORRECT!</div>
+              <div className="answer">
+                  {answer} pronoun!
+              </div>
+           </Stack>}
       <ScoreBoard score={score} togglePlayer={togglePlayer} playerNames={playerNames}/>
       {board}
     </React.Fragment>
