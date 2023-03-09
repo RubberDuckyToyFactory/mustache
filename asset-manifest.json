@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/mustache/static/css/main.be51393e.css",
-    "main.js": "/mustache/static/js/main.01903815.js",
+    "main.js": "/mustache/static/js/main.27d10523.js",
     "static/media/dadschool.png": "/mustache/static/media/dadschool.43e532cc274e4aa7f08c.png",
     "index.html": "/mustache/index.html",
     "main.be51393e.css.map": "/mustache/static/css/main.be51393e.css.map",
-    "main.01903815.js.map": "/mustache/static/js/main.01903815.js.map"
+    "main.27d10523.js.map": "/mustache/static/js/main.27d10523.js.map"
   },
   "entrypoints": [
     "static/css/main.be51393e.css",
-    "static/js/main.01903815.js"
+    "static/js/main.27d10523.js"
   ]
 }
